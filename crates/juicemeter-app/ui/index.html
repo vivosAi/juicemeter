@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>juicemeter</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 28 36" aria-hidden="true">
+        <path d="M18 11 L21 3 L26 3" fill="none" stroke="#F6F7FE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <rect x="3" y="11" width="22" height="24" rx="4" fill="none" stroke="#F6F7FE" stroke-width="2.5"></rect>
+        <path d="M7 21 Q11 19 14 21 T21 21 L21 29 Q21 31 19 31 L9 31 Q7 31 7 29 Z" fill="#FF7A1A"></path>
+      </svg>
+      <h1>juicemeter</h1>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Show">
+        <button data-show="remaining">left</button>
+        <button data-show="used">used</button>
+      </div>
+      <button id="refresh" class="icon" title="Refresh now" aria-label="Refresh now">⟳</button>
+      <button id="open-settings" class="icon" title="Settings" aria-label="Settings">⚙</button>
+    </div>
+  </header>
+  <main id="entries"><p class="empty">Loading…</p></main>
+  <section id="settings" hidden>
+    <div class="settings-head">
+      <button id="close-settings" class="icon" title="Back" aria-label="Back">←</button>
+      <h2>Settings</h2>
+    </div>
+    <div class="settings-body">
+      <h3>Accounts</h3>
+      <p class="hint">Name them however you like. ★ shows one in the menu bar.</p>
+      <div id="set-accounts"></div>
+
+      <h3>Menu bar</h3>
+      <p class="hint">Values are weekly, with ↻ before the time to refill. A 5-hour session joins (after /) once it's down to 10%.</p>
+      <div id="set-modes" class="modes"></div>
+      <div class="row">
+        <span>Each item shows</span>
+        <div class="seg" role="group" aria-label="Each item shows" id="bar-value">
+          <button data-key="bar_value" data-value="both">% + time</button>
+          <button data-key="bar_value" data-value="percent">%</button>
+          <button data-key="bar_value" data-value="time">time</button>
+        </div>
+      </div>
+      <div class="row">
+        <span>Names</span>
+        <div class="seg" role="group" aria-label="Names" id="bar-names">
+          <button data-key="bar_names" data-value="full">Claude</button>
+          <button data-key="bar_names" data-value="short">Cl, Co-A</button>
+        </div>
+      </div>
+      <div class="row">
+        <span>Show</span>
+        <div class="seg" role="group" aria-label="Show">
+          <button data-show="remaining">left</button>
+          <button data-show="used">used</button>
+        </div>
+      </div>
+
+      <h3>Other machines</h3>
+      <p class="hint">Tailscale names of machines running juicemeter-agent.</p>
+      <div id="set-hosts"></div>
+      <button id="discover" class="discover" type="button">Find machines on my tailnet</button>
+      <div id="found"></div>
+      <form id="add-host" class="add-host">
+        <label for="new-host" class="sr">Machine name</label>
+        <input id="new-host" placeholder="my-mac-mini" autocomplete="off" spellcheck="false">
+        <button type="submit">Add</button>
+      </form>
+      <h3>App</h3>
+      <label class="check"><input type="checkbox" id="autostart"> Start at login</label>
+
+      <p id="settings-error" class="error" hidden></p>
+    </div>
+  </section>
+  <footer>
+    <div id="machines"></div>
+    <div class="foot-right">
+      <span id="updated"></span>
+      <button id="quit" class="link">Quit</button>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>

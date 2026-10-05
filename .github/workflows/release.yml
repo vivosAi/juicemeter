@@ -1,0 +1,95 @@
+name: Release
+
+# Push a tag like v0.2.0 to build everything and publish a GitHub release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  cli:
+    name: CLI and agent (${{ matrix.target }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-latest, target: macos-universal }
+          - { os: ubuntu-latest, target: x86_64-unknown-linux-gnu }
+          - { os: ubuntu-24.04-arm, target: aarch64-unknown-linux-gnu }
+          - { os: windows-latest, target: x86_64-pc-windows-msvc }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target == 'macos-universal' && 'aarch64-apple-darwin,x86_64-apple-darwin' || matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+
+      - name: Build (macOS, both architectures in one file)
+        if: matrix.target == 'macos-universal'
+        run: |
+          for t in aarch64-apple-darwin x86_64-apple-darwin; do
+            cargo build --release --locked --target $t -p juicemeter-cli -p juicemeter-agent
+          done
+          mkdir -p dist
+          for b in juicemeter juicemeter-agent; do
+            lipo -create -output dist/$b target/aarch64-apple-darwin/release/$b target/x86_64-apple-darwin/release/$b
+          done
+      - name: Build
+        if: matrix.target != 'macos-universal'
+        shell: bash
+        run: |
+          cargo build --release --locked --target ${{ matrix.target }} -p juicemeter-cli -p juicemeter-agent
+          mkdir -p dist
+          ext=""; [ "${{ runner.os }}" = "Windows" ] && ext=".exe"
+          cp target/${{ matrix.target }}/release/juicemeter$ext target/${{ matrix.target }}/release/juicemeter-agent$ext dist/
+
+      - name: Package
+        shell: bash
+        run: |
+          cp README.md LICENSE-APACHE LICENSE-MIT dist/
+          name=juicemeter-${{ matrix.target }}
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            (cd dist && 7z a ../$name.zip .)
+          else
+            tar -czf $name.tar.gz -C dist .
+          fi
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: juicemeter-${{ matrix.target }}.*
+
+  app:
+    name: Menu bar app (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: macos-latest, args: "--target universal-apple-darwin --bundles app,dmg" }
+          - { os: ubuntu-22.04, args: "--bundles deb,appimage" }
+          - { os: windows-latest, args: "--bundles nsis" }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Linux libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf
+      - run: cargo install tauri-cli --version '^2' --locked
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: crates/juicemeter-app
+          tauriScript: cargo tauri
+          tagName: ${{ github.ref_name }}
+          releaseName: juicemeter ${{ github.ref_name }}
+          args: ${{ matrix.args }}

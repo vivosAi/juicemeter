@@ -1,0 +1,33 @@
+[package]
+name = "juicemeter-core"
+description = "Provider-agnostic AI subscription usage collection"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["claude", "codex", "deepseek", "antigravity"]
+antigravity = []
+claude = []
+codex = []
+deepseek = []
+
+[dependencies]
+anyhow.workspace = true
+async-trait.workspace = true
+base64 = "0.23.1"
+chrono.workspace = true
+dirs = "6"
+futures.workspace = true
+gethostname = "1"
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2 = "0.11.0"
+thiserror.workspace = true
+tokio = { workspace = true, features = ["process", "time", "io-util"] }
+toml = "1.1.6"
+toml_edit = "0.25.15"
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt"] }

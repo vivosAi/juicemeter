@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>juicemeter · squeeze every last token</title>
+  <meta name="description" content="How much is left in your Claude, Codex, Antigravity and DeepSeek plans, from every machine you use, right in your menu bar.">
+  <link rel="icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="juice.js" defer></script>
+</head>
+<body>
+  <header class="top wrap">
+    <a class="brand" href="#">
+      <span class="jb" style="--w:22px; --lvl:72%" aria-hidden="true"><i></i></span>
+      juicemeter
+    </a>
+    <nav>
+      <a href="#menubar">Menu bar</a>
+      <a href="#how">How it works</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/vivosAi/juicemeter">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-text">
+        <h1>Squeeze every last token.</h1>
+        <p class="lede">How much is left in your Claude, Codex, Antigravity and DeepSeek plans, from every machine you use, right in the menu bar. It warns you before one runs dry. It also nags you when a whole week of it is about to go to waste, which is the one that really stings.</p>
+        <div class="cta">
+          <a class="btn" href="#install">Install</a>
+          <a class="btn ghost" href="https://github.com/vivosAi/juicemeter">View on GitHub</a>
+        </div>
+      </div>
+      <div class="hero-box" aria-hidden="true">
+        <span class="jb big" style="--w:min(300px, 62vw); --lvl:68%"><i><b></b><b></b><b></b><b></b><b></b></i></span>
+        <span class="readout">68% left · refills in 4d</span>
+      </div>
+    </section>
+
+    <div class="band" aria-hidden="true">
+      <span class="wave back"></span>
+      <span class="wave front"></span>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <span class="rider" aria-hidden="true"><span class="ski">
+        <svg viewBox="0 0 64 66"><path d="M29 19 Q22 16 15 19 Q20 20 23 23" fill="#F6F7FE"/><path d="M25 35 L32 29 L34 35" fill="none" stroke="#E2DB60" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 35 L30 21" fill="none" stroke="#E2DB60" stroke-width="4.5" stroke-linecap="round"/><path d="M30 22 L37 25 L45 21" fill="none" stroke="#E2DB60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="14" r="5" fill="#E2DB60"/><path d="M27 14 A5 5 0 0 1 37 13 L37.5 14.5 L27 14.5 Z" fill="#FF7A1A"/><path d="M39 36 L45 21 L53 21" fill="none" stroke="#F6F7FE" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="18" y="35" width="28" height="27" rx="6" fill="#002FA7" stroke="#F6F7FE" stroke-width="3.5"/><path d="M22.5 47 Q26.5 44 31 47 T41.5 47 L41.5 55 Q41.5 58 38.5 58 L25.5 58 Q22.5 58 22.5 55 Z" fill="#FF7A1A"/></svg>
+        <b></b><b></b><b></b>
+      </span></span>
+    </div>
+
+    <section class="features wrap">
+      <article>
+        <span class="jb" style="--w:44px; --lvl:9%; --c:var(--dry)" aria-hidden="true"><i></i></span>
+        <h2>Squeezed dry</h2>
+        <p>It compares how fast you're burning a window with how much time it has left, so you hear about the wall before you hit it.</p>
+      </article>
+      <article>
+        <span class="jb" style="--w:44px; --lvl:88%; --c:var(--drink)" aria-hidden="true"><i></i></span>
+        <h2>Drink up</h2>
+        <p>Five days into the week and you've used 15% of Claude? It says so while there's still time for that side project.</p>
+      </article>
+      <article>
+        <span class="trio" aria-hidden="true">
+          <span class="jb" style="--w:26px; --lvl:80%"><i></i></span>
+          <span class="jb" style="--w:26px; --lvl:45%"><i></i></span>
+          <span class="jb" style="--w:26px; --lvl:62%"><i></i></span>
+        </span>
+        <h2>Every machine</h2>
+        <p>Laptop, Mac mini, the box under the desk. One list, and an account logged in on two of them counts once.</p>
+      </article>
+      <article>
+        <span class="jb" style="--w:44px; --lvl:100%" aria-hidden="true"><i></i></span>
+        <h2>Zero tokens</h2>
+        <p>It only asks for usage numbers. No prompts go out, so checking costs nothing.</p>
+      </article>
+      <article>
+        <span class="resets" aria-hidden="true"><b>4</b><span>free resets<br>1 expires in 27h</span></span>
+        <h2>Free resets</h2>
+        <p>Codex hands out free limit resets that quietly expire. juicemeter counts them and flags the next one before it's gone.</p>
+      </article>
+      <article>
+        <span class="plug" aria-hidden="true">{ }</span>
+        <h2>Any provider</h2>
+        <p>If a service answers with JSON, a few lines of config add it. No code, no waiting for a release.</p>
+      </article>
+    </section>
+
+    <section id="menubar" class="menubar-section wrap">
+      <div>
+        <h2 class="section-title">Lives in your menu bar.</h2>
+        <p class="body">Star the accounts you care about and they sit next to the clock, with what's left and when it refills. If something you didn't star is about to run dry, it jumps in front. Click the box for everything else.</p>
+      </div>
+      <div class="demo" aria-label="The juicemeter menu bar and panel">
+        <div class="menubar">
+          <span class="item">
+            <svg class="tray-icon" viewBox="0 0 28 36" aria-hidden="true"><path d="M18 10 L21 2 L26 2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="3.5" y="11.5" width="21" height="23" rx="2.5" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 17.5 Q11 15.5 14 17.5 T20 17.5 L20 30 L8 30 Z" fill="currentColor"/></svg>
+            Claude 79% (4d) · Codex 92% (3d)
+          </span>
+          <span class="clock">Thu 22:41</span>
+        </div>
+        <div class="panel">
+          <div class="card">
+            <div class="head"><span class="badge drink">DRINK UP</span><b>Claude</b><span class="plan">max</span></div>
+            <div class="bar-row"><span>Weekly</span><div class="bar"><i class="yellow" style="width:79%"></i><s style="left:39%"></s></div><span class="pct">79%</span></div>
+            <p class="status drink-text">~70% goes to waste · refills in 1d 4h</p>
+          </div>
+          <div class="card">
+            <div class="head"><span class="badge dry">SQUEEZED DRY</span><b>Codex</b><span class="plan">plus</span></div>
+            <div class="bar-row"><span>5-hour</span><div class="bar"><i class="red" style="width:8%"></i><s style="left:40%"></s></div><span class="pct">8%</span></div>
+            <p class="status dry-text">squeezed dry in ~40m · refills in 3h</p>
+          </div>
+          <div class="card">
+            <div class="head"><b>DeepSeek</b><span class="plan">API</span></div>
+            <div class="money"><span>Balance</span><b>$4.89</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="how wrap">
+      <h2 class="section-title">How it works</h2>
+      <ol class="steps">
+        <li>
+          <span class="n">01</span>
+          <h3>An agent on every machine</h3>
+          <p><code>juicemeter-agent</code> reads that machine's Claude Code and Codex logins, plus any API keys you point it at, every few minutes.</p>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <h3>Numbers over Tailscale</h3>
+          <p>Agents share usage on your private Tailscale network. Only numbers travel. Credentials stay where they are.</p>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <h3>Look from anywhere</h3>
+          <p>The menu bar app, or <code>juicemeter</code> in a terminal, reads every agent and shows one entry per account.</p>
+        </li>
+      </ol>
+      <p class="note">A server only needs the agent. A laptop can run just the app. Anything else can use <code>juicemeter --json</code>.</p>
+    </section>
+
+    <section class="principles wrap">
+      <h2 class="section-title">House rules</h2>
+      <ul>
+        <li><b>Read-only.</b> It reads the logins your tools already keep. It never refreshes or rewrites them, so it can't log you out.</li>
+        <li><b>Zero tokens.</b> Usage numbers only. It never sends a prompt.</li>
+        <li><b>Credentials stay home.</b> Machines share numbers, never keys.</li>
+        <li><b>No snooping.</b> No browser cookies, no other apps' data, no Full Disk Access.</li>
+      </ul>
+      <p class="note">Want a provider these rules rule out? There's a <a href="https://github.com/vivosAi/juicemeter/blob/main/docs/build-your-own-provider.md">ready-made prompt</a> for building it in your own fork.</p>
+    </section>
+
+    <section id="install" class="install wrap">
+      <h2 class="section-title">Install</h2>
+      <p>On every machine you use (you'll need <a href="https://rustup.rs">Rust</a>):</p>
+      <pre><code>git clone https://github.com/vivosAi/juicemeter.git &amp;&amp; cd juicemeter
+cargo install --path crates/juicemeter-cli
+cargo install --path crates/juicemeter-agent
+juicemeter-agent install</code></pre>
+      <p>On the Mac you look from, build the menu bar app:</p>
+      <pre><code>cargo install tauri-cli --version '^2' --locked
+cd crates/juicemeter-app &amp;&amp; cargo tauri build --bundles app
+cp -R ../../target/release/bundle/macos/juicemeter.app /Applications/</code></pre>
+      <p>Add your other machines in its settings. Or skip the app and stay in the terminal:</p>
+      <div class="term" role="img" aria-label="juicemeter output in a terminal">
+        <div class="term-bar"><span></span><span></span><span></span></div>
+<pre class="term-body"><span class="dim">$</span> juicemeter
+<span class="dry">▼ SQUEEZED DRY</span>  <b>Codex</b> (plus) · Work  <span class="dim">live · 21:25</span>
+  5-hour   <span class="dry">██</span><span class="dim">░░░░░│░░░░░░░░░░░░</span>   8% left  <span class="dim">squeezed dry in ~40m</span>
+
+<span class="drink">▲ DRINK UP</span>  <b>Claude</b> (max) · Personal  <span class="dim">live · 21:25</span>
+  Weekly   <span class="drink">████████│███████</span><span class="dim">░░░░</span>  79% left  <span class="dim">~70% goes to waste</span>
+  <span class="dim">on laptop, mini</span>
+
+<b>DeepSeek</b> · sk-…a1b2
+  Balance  $4.89</pre>
+      </div>
+    </section>
+
+    <section class="providers wrap">
+      <h2 class="section-title">Works with</h2>
+      <ul>
+        <li><b>Claude</b><span>Pro and Max: session and weekly limits</span></li>
+        <li><b>Codex</b><span>ChatGPT plans: 5-hour and weekly limits, credits</span></li>
+        <li><b>DeepSeek</b><span>API balance</span></li>
+        <li><b>Antigravity</b><span>Weekly quota for its Gemini and Claude models</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="band band-foot" aria-hidden="true">
+      <span class="wave back"></span>
+      <span class="wave front"></span>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <span class="rider" aria-hidden="true"><span class="ski">
+        <svg viewBox="0 0 64 66"><path d="M29 19 Q22 16 15 19 Q20 20 23 23" fill="#F6F7FE"/><path d="M25 35 L32 29 L34 35" fill="none" stroke="#E2DB60" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 35 L30 21" fill="none" stroke="#E2DB60" stroke-width="4.5" stroke-linecap="round"/><path d="M30 22 L37 25 L45 21" fill="none" stroke="#E2DB60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="14" r="5" fill="#E2DB60"/><path d="M27 14 A5 5 0 0 1 37 13 L37.5 14.5 L27 14.5 Z" fill="#FF7A1A"/><path d="M39 36 L45 21 L53 21" fill="none" stroke="#F6F7FE" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="18" y="35" width="28" height="27" rx="6" fill="#002FA7" stroke="#F6F7FE" stroke-width="3.5"/><path d="M22.5 47 Q26.5 44 31 47 T41.5 47 L41.5 55 Q41.5 58 38.5 58 L25.5 58 Q22.5 58 22.5 55 Z" fill="#FF7A1A"/></svg>
+        <b></b><b></b><b></b>
+      </span></span>
+    </div>
+    <div class="foot-juice">
+      <div class="wrap foot">
+        <p>Open source. Not affiliated with Anthropic, OpenAI, Google or DeepSeek.</p>
+        <a href="https://github.com/vivosAi/juicemeter">github.com/vivosAi/juicemeter</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="page-meter" aria-hidden="true">
+    <span class="jb" style="--w:30px; --lvl:100%"><i></i></span>
+    <span class="page-readout">100% left</span>
+  </div>
+</body>
+</html>

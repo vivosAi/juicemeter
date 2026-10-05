@@ -1,0 +1,6 @@
+{
+  "identifier": "default",
+  "description": "The panel can listen for updates and call the app's commands.",
+  "windows": ["panel"],
+  "permissions": ["core:default"]
+}
