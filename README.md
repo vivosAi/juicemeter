@@ -1,7 +1,9 @@
 # juicemeter
 
 How much juice is left in your AI subscriptions. Plan limits, reset times and API
-balances for Claude, Codex and DeepSeek, from every machine you use, in one place.
+balances for Claude, Codex, Antigravity and DeepSeek, from every machine you use, in one place.
+
+<p align="center"><img src="docs/screenshots/panel.png" width="520" alt="The juicemeter menu bar item and its panel: Codex squeezed dry, Claude's week going to waste"></p>
 
 I built it after one too many Fridays of realising I'd barely touched my main subscription
 that week, while a second account on another machine had run dry on Tuesday.
@@ -153,6 +155,8 @@ Each item is the account's general weekly window (per-model limits like Claude's
 "Weekly · Fable" stay in the panel): what's left, then `↻` and when it refills. The five-hour session joins after a `/`
 only once it's down to 10%, and leaves again above 20%, so it doesn't flicker. Settings can
 show only the percentage or only the time, and short names (`Cl`, `Co-A`).
+
+<p align="center"><img src="docs/screenshots/settings.png" width="460" alt="juicemeter settings: account names, stars for the menu bar, menu bar options"></p>
 
 The ⚙ in the panel opens settings: name your accounts, pick what the menu bar shows, and
 add or remove other machines. The same choices are in the right-click menu and the config
