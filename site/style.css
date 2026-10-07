@@ -344,5 +344,8 @@ footer a:hover { color: var(--klein); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  /* Riders park on their wave instead of waiting off-screen. */
+  .rider { left: 62%; }
+  .band-foot .rider { left: 28%; }
   html { scroll-behavior: auto; }
 }
