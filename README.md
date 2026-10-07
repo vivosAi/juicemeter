@@ -1,7 +1,7 @@
 # juicemeter
 
-How much juice is left in your AI subscriptions. Plan limits, reset times and API
-balances for Claude, Codex, Antigravity and DeepSeek, from every machine you use, in one place.
+How much juice is left in your AI subscriptions. Plan limits, refill times, free resets and
+API balances for Claude, Codex, DeepSeek and more, from every machine you use, in one place.
 
 <p align="center"><img src="docs/screenshots/panel.png" width="520" alt="The juicemeter menu bar item and its panel: Codex squeezed dry, Claude's week going to waste"></p>
 
