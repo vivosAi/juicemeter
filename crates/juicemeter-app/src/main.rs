@@ -147,6 +147,19 @@ async fn set_bar(app: AppHandle, key: String, value: String) -> Result<(), Strin
     set_setting(&app, &key, &value).await
 }
 
+/// Hide an account on this machine, or bring it back.
+#[tauri::command]
+async fn set_hidden(app: AppHandle, key: String, hidden: bool) -> Result<(), String> {
+    let mut list = Config::load().map_err(|e| format!("{e:#}"))?.hidden;
+    list.retain(|k| *k != key);
+    if hidden {
+        list.push(key);
+    }
+    juicemeter_core::edit::set_list("hidden", &list, &[]).map_err(|e| format!("{e:#}"))?;
+    update(&app).await;
+    Ok(())
+}
+
 /// Name an account; an empty name removes the label.
 #[tauri::command]
 async fn set_label(app: AppHandle, key: String, label: String) -> Result<(), String> {
@@ -306,6 +319,7 @@ fn main() {
             set_autostart,
             discover,
             set_bar,
+            set_hidden,
             quit
         ])
         .setup(|app| {

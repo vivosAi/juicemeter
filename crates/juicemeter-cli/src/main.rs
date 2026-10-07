@@ -108,10 +108,8 @@ async fn main() -> anyhow::Result<()> {
                 _ => config.show,
             };
             let mut reports = gather(&config, &hosts).await?;
-            if !only.is_empty() {
-                for r in &mut reports {
-                    r.providers.retain(|p| only.contains(&p.provider));
-                }
+            for r in &mut reports {
+                r.providers.retain(|p| (only.is_empty() || only.contains(&p.provider)) && !config.is_hidden(p));
             }
             let color = std::io::stdout().is_terminal();
             match (by_host, json) {

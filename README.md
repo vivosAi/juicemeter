@@ -228,6 +228,9 @@ label = "Work ChatGPT"
 provider = "deepseek"
 key = { env_file = "~/.someagent/.env", var = "DEEPSEEK_API_KEY" }
 
+hidden = ["antigravity:0a1b2c3d4e5f"]  # accounts this machine doesn't show (also: Settings, "hide")
+disable = ["antigravity"]   # providers this machine doesn't check at all
+
 [labels]                    # names for accounts, by id (see `juicemeter accounts`)
 "claude:1a2b3c4d5e6f" = "Personal Claude"
 ```

@@ -160,10 +160,25 @@ function renderSettings() {
     const save = () => { if ((e.label || "") !== name.value.trim()) call("set_label", { key: e.key, label: name.value }); };
     name.onchange = save;
     name.onkeydown = (ev) => { if (ev.key === "Enter") name.blur(); };
-    top.append(star, name);
+    const hide = el("button", "hide", "hide");
+    hide.setAttribute("aria-label", `Hide ${e.name} ${e.who} on this machine`);
+    hide.onclick = () => call("set_hidden", { key: e.key, hidden: true });
+    top.append(star, name, hide);
     const meta = [e.name, e.plan, e.who, e.machines.join(", ")].filter(Boolean).join(" · ");
     box.append(top, el("div", "meta", meta));
     return box;
+  }));
+
+  const hidden = view.hidden || [];
+  document.getElementById("set-hidden-title").hidden = !hidden.length;
+  document.getElementById("set-hidden").replaceChildren(...hidden.map((e) => {
+    const row = el("div", "host");
+    row.append(el("span", "", [e.label || e.name, e.who].filter(Boolean).join(" · ")));
+    const show = el("button", "", "show");
+    show.setAttribute("aria-label", `Show ${e.name} ${e.who} again`);
+    show.onclick = () => call("set_hidden", { key: e.key, hidden: false });
+    row.append(show);
+    return row;
   }));
 
   document.getElementById("set-modes").replaceChildren(...MODES.map(([key, title, desc]) => {

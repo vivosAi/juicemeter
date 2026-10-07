@@ -26,6 +26,8 @@ pub struct View {
     pub hosts: Vec<String>,
     pub machines: Vec<Machine>,
     pub entries: Vec<Entry>,
+    /// Accounts hidden on this machine, for the settings page to bring back.
+    pub hidden: Vec<Entry>,
     /// Accounts whose session window is shown in the menu bar (see `sticky_sessions`).
     #[serde(skip)]
     pub sessions: HashSet<String>,
@@ -96,8 +98,9 @@ fn pinned_keys(entries: &[Entry], pins: Option<&[String]>) -> Vec<String> {
 
 pub fn build(merged: &[Merged], machines: Vec<Machine>, config: &Config, now: DateTime<Utc>) -> View {
     let pins = config.pinned();
-    let mut entries: Vec<Entry> = merged
+    let entries: Vec<Entry> = merged
         .iter()
+        .filter(|m| m.report.account.is_some() || !config.is_hidden(&m.report))
         .map(|m| {
             let r = &m.report;
             let key =
@@ -160,6 +163,8 @@ pub fn build(merged: &[Merged], machines: Vec<Machine>, config: &Config, now: Da
             }
         })
         .collect();
+    let (hidden, mut entries): (Vec<Entry>, Vec<Entry>) =
+        entries.into_iter().partition(|e| config.hidden.contains(&e.key));
     let keys = pinned_keys(&entries, pins.as_deref());
     entries.iter_mut().for_each(|e| e.pinned = keys.contains(&e.key));
     // Urgent first, then the pinned account, then everything else; not-configured last.
@@ -173,6 +178,7 @@ pub fn build(merged: &[Merged], machines: Vec<Machine>, config: &Config, now: Da
         hosts: config.hosts.clone(),
         machines,
         entries,
+        hidden,
         sessions: HashSet::new(),
     }
 }
@@ -492,6 +498,7 @@ mod tests {
             hosts: vec![],
             machines: vec![],
             entries,
+            hidden: vec![],
             sessions: HashSet::new(),
         }
     }
@@ -602,6 +609,17 @@ mod tests {
         e[0].windows[1].state = State::RunningOut;
         let t = headline(&view(Mode::Watch, e, Some(&["claude:a"])), Utc::now()).title.unwrap();
         assert_eq!(t, "Claude 50% ↻3d");
+    }
+
+    #[test]
+    fn hidden_accounts_leave_the_panel_and_the_menu_bar() {
+        let config = Config { hidden: vec!["codex:b".into()], ..Config::default() };
+        let e = calm();
+        let (hidden, kept): (Vec<Entry>, Vec<Entry>) = e.into_iter().partition(|e| config.hidden.contains(&e.key));
+        let mut v = view(Mode::Watch, kept, Some(&["claude:a", "codex:b"]));
+        v.hidden = hidden;
+        assert_eq!(headline(&v, Utc::now()).title.as_deref(), Some("Claude 80% ↻3d"));
+        assert_eq!((v.entries.len(), v.hidden[0].key.as_str()), (1, "codex:b"));
     }
 
     #[test]

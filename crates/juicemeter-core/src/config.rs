@@ -24,6 +24,9 @@
 //! provider = "deepseek"
 //! key = { env_file = "~/.someagent/.env", var = "DEEPSEEK_API_KEY" }
 //!
+//! hidden = ["antigravity:0a1b2c3d4e5f"]  # accounts this machine doesn't show
+//! disable = ["antigravity"]           # providers this machine doesn't check at all
+//!
 //! [labels]                            # names for accounts, by account id
 //! "codex:3f9a1c2b4d5e" = "Personal ChatGPT"
 //! ```
@@ -65,6 +68,12 @@ pub struct Config {
     pub sources: Vec<SourceConfig>,
     #[serde(default)]
     pub labels: BTreeMap<String, String>,
+    /// Accounts this machine doesn't show (ids, see `juicemeter accounts`).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub hidden: Vec<String>,
+    /// Providers this machine doesn't check at all, e.g. `["antigravity"]`.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub disable: Vec<String>,
 }
 
 /// Glass half full or half empty.
@@ -197,6 +206,8 @@ impl Default for Config {
             intervals: BTreeMap::new(),
             sources: vec![],
             labels: BTreeMap::new(),
+            hidden: vec![],
+            disable: vec![],
         }
     }
 }
@@ -308,7 +319,23 @@ impl Config {
                 None => out.push(p),
             }
         }
+        out.retain(|p| !self.disable.iter().any(|d| d == p.kind()));
         Ok(out)
+    }
+
+    /// Whether this report is hidden here: its account is, or it's a "not configured" hint
+    /// for a provider whose accounts are hidden.
+    pub fn is_hidden(&self, r: &crate::ProviderReport) -> bool {
+        match &r.account {
+            Some(a) => self.hidden.contains(&a.id),
+            None => {
+                matches!(r.outcome, crate::Outcome::NotConfigured { .. })
+                    && self
+                        .hidden
+                        .iter()
+                        .any(|h| h.strip_prefix(r.provider.as_str()).is_some_and(|rest| rest.starts_with(':')))
+            }
+        }
     }
 }
 
@@ -415,6 +442,13 @@ mod tests {
         assert!(toml::from_str::<Config>("[[source]]\nprovider = \"codex\"\nhom = \"x\"").is_err());
         let s = SourceConfig { provider: "nope".into(), ..SourceConfig::new("nope") };
         assert!(build(&s).is_err());
+    }
+
+    #[test]
+    fn disabled_providers_are_not_checked() {
+        let c: Config = toml::from_str("disable = [\"deepseek\"]").unwrap();
+        let kinds: Vec<String> = c.providers().unwrap().iter().map(|p| p.kind().to_string()).collect();
+        assert!(!kinds.contains(&"deepseek".to_string()) && kinds.contains(&"claude".to_string()), "{kinds:?}");
     }
 
     #[test]

@@ -117,6 +117,8 @@ h3 { font: 600 11px var(--mono); letter-spacing: 0.08em; text-transform: upperca
 .acct { background: var(--card); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; }
 .acct-top { display: flex; align-items: center; gap: 8px; }
 .acct input { flex: 1; min-width: 0; }
+.acct .hide { font: 600 11px var(--mono); color: var(--dim); padding: 4px 8px; border-radius: 999px; }
+.acct .hide:hover { color: var(--text); background: var(--track); }
 .acct .meta { font: 11px var(--mono); color: var(--dim); margin-top: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 input {
   font: 600 14px "Bricolage Grotesque", sans-serif; color: var(--text);
